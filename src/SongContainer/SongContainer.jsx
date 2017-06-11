@@ -1,24 +1,35 @@
 import React, { Component } from "react";
 
-import SongColor from "./SongColor";
+import { SketchPicker } from "react-color";
 
-import './SongContainer.css';
 
 class SongContainer extends Component {
 
     constructor(props) {
         super(props);
+
+        this.updateColor = this.updateColor.bind(this);
+
         this.state = {
-            color: "forestgreen",
+            color: "white",
         };
     }
 
-
+    updateColor(newColor) {
+        console.log("New Color", newColor);
+        this.setState({
+           color: newColor.hex
+        });
+    }
 
     render() {
 
         const divStyle = {
-            backgroundColor: this.state.color
+            margin: "0 auto",
+            width: "400px",
+            height: "100px",
+            backgroundColor: this.state.color,
+            border: "1px solid black"
         };
 
         return (
@@ -30,7 +41,11 @@ class SongContainer extends Component {
                     id="SongContainer"
                     style={divStyle}
                 >
-                    <SongColor />
+                    <SketchPicker
+                        color={ this.state.color }
+                        onChange={ this.updateColor }
+                    />
+
                 </div>
             </div>
         )
