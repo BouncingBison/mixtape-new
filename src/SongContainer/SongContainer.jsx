@@ -9,11 +9,22 @@ class SongContainer extends Component {
         super(props);
 
         this.updateColor = this.updateColor.bind(this);
+        this.closeColorPicker = this.closeColorPicker.bind(this);
+        this.toggleColorPicker = this.toggleColorPicker.bind(this);
 
         this.state = {
-            color: "white",
+            displayColorPicker: false,
+            color: "grey"
         };
     }
+
+    closeColorPicker() {
+        this.setState({ displayColorPicker: false })
+    };
+
+    toggleColorPicker() {
+        this.setState({ displayColorPicker: !this.state.displayColorPicker })
+    };
 
     updateColor(newColor) {
         console.log("New Color", newColor);
@@ -24,13 +35,22 @@ class SongContainer extends Component {
 
     render() {
 
-        const divStyle = {
-            margin: "0 auto",
-            width: "400px",
-            height: "100px",
-            backgroundColor: this.state.color,
-            border: "1px solid black"
+        const styles = {
+            songContainer: {
+                margin: "0 auto",
+                width: "400px",
+                height: "100px",
+                background: this.state.color,
+                border: "1px solid black"
+            },
+            colorButton: {
+                width: "100px",
+                padding: "5px",
+                background: "white",
+                borderRadius: "2px"
+            }
         };
+
 
         return (
             <div>
@@ -38,13 +58,30 @@ class SongContainer extends Component {
                     Song Container
                 </h2>
                 <div
-                    id="SongContainer"
-                    style={divStyle}
+                    style={ styles.songContainer }
+                    onClick = { this.handleClick }
                 >
-                    <SketchPicker
-                        color={ this.state.color }
-                        onChange={ this.updateColor }
-                    />
+                    <button
+                        style= { styles.colorButton }
+                        type="button"
+                        onClick={ this.toggleColorPicker }
+                    >
+                        { this.state.displayColorPicker ?
+                            `Confirm`
+                            :
+                            `Pick a Color`
+                        }
+                    </button>
+                    { this.state.displayColorPicker ?
+                        <SketchPicker
+                            onClick={this.toggleColorPicker}
+                            color={ this.state.color }
+                            onChange={ this.updateColor }
+                            disableAlpha="true"
+                        />
+                        :
+                        null
+                    }
 
                 </div>
             </div>
