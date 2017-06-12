@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { SketchPicker } from "react-color";
+import { PhotoshopPicker } from "react-color";
 
 
 class SongContainer extends Component {
@@ -8,28 +8,37 @@ class SongContainer extends Component {
     constructor(props) {
         super(props);
 
+        this.queueColor = this.queueColor.bind(this);
         this.updateColor = this.updateColor.bind(this);
         this.closeColorPicker = this.closeColorPicker.bind(this);
-        this.toggleColorPicker = this.toggleColorPicker.bind(this);
+        this.openColorPicker = this.openColorPicker.bind(this);
 
         this.state = {
             displayColorPicker: false,
-            color: "grey"
+            backgroundColor: "grey",
+            pickerColor: "grey"
         };
     }
 
     closeColorPicker() {
-        this.setState({ displayColorPicker: false })
-    };
-
-    toggleColorPicker() {
-        this.setState({ displayColorPicker: !this.state.displayColorPicker })
-    };
-
-    updateColor(newColor) {
-        console.log("New Color", newColor);
         this.setState({
-           color: newColor.hex
+            pickerColor: this.state.backgroundColor,
+            displayColorPicker: false })
+    };
+
+    openColorPicker() {
+        this.setState({ displayColorPicker: true })
+    };
+
+    queueColor(newColor) {
+        this.setState({
+            pickerColor: newColor.hex
+        })
+    }
+    updateColor() {
+        this.setState({
+            displayColorPicker: false,
+            backgroundColor: this.state.pickerColor
         });
     }
 
@@ -40,13 +49,14 @@ class SongContainer extends Component {
                 margin: "0 auto",
                 width: "400px",
                 height: "100px",
-                background: this.state.color,
+                backgroundColor: this.state.backgroundColor,
                 border: "1px solid black"
             },
             colorButton: {
-                width: "100px",
+                width: "110px",
                 padding: "5px",
-                background: "white",
+                backgroundColor: "white",
+                border: "2px solid black",
                 borderRadius: "2px"
             }
         };
@@ -59,25 +69,20 @@ class SongContainer extends Component {
                 </h2>
                 <div
                     style={ styles.songContainer }
-                    onClick = { this.handleClick }
                 >
                     <button
                         style= { styles.colorButton }
                         type="button"
-                        onClick={ this.toggleColorPicker }
+                        onClick={ this.openColorPicker }
                     >
-                        { this.state.displayColorPicker ?
-                            `Confirm`
-                            :
-                            `Pick a Color`
-                        }
+                        Pick a Color
                     </button>
                     { this.state.displayColorPicker ?
-                        <SketchPicker
-                            onClick={this.toggleColorPicker}
-                            color={ this.state.color }
-                            onChange={ this.updateColor }
-                            disableAlpha="true"
+                        <PhotoshopPicker
+                            color={ this.state.pickerColor }
+                            onChange={ this.queueColor }
+                            onAccept={ this.updateColor }
+                            onCancel={ this.closeColorPicker }
                         />
                         :
                         null
