@@ -15,13 +15,13 @@ class SongColor extends Component {
 
         this.state = {
             displayColorPicker: false,
-            pickerColor: "grey",
+            pickerColor: this.props.backgroundColor
         };
     }
 
     closeColorPicker() {
         this.setState({
-            pickerColor: this.props.background,
+            pickerColor: this.props.backgroundColor,
             displayColorPicker: false
         })
     };
