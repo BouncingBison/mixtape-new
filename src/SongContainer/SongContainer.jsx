@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-
 import { PhotoshopPicker } from "react-color";
-
+import SongEmotion from "./SongEmotion";
 
 class SongContainer extends Component {
 
@@ -23,11 +22,14 @@ class SongContainer extends Component {
     closeColorPicker() {
         this.setState({
             pickerColor: this.state.backgroundColor,
-            displayColorPicker: false })
+            displayColorPicker: false
+        })
     };
 
     openColorPicker() {
-        this.setState({ displayColorPicker: true })
+        this.setState({
+            displayColorPicker: true
+        })
     };
 
     queueColor(newColor) {
@@ -47,8 +49,8 @@ class SongContainer extends Component {
         const styles = {
             songContainer: {
                 margin: "0 auto",
-                width: "400px",
-                height: "100px",
+                width: "600px",
+                height: "200px",
                 backgroundColor: this.state.backgroundColor,
                 border: "1px solid black"
             },
@@ -61,7 +63,6 @@ class SongContainer extends Component {
             }
         };
 
-
         return (
             <div>
                 <h2>
@@ -70,6 +71,7 @@ class SongContainer extends Component {
                 <div
                     style={ styles.songContainer }
                 >
+                    <SongEmotion />
                     <button
                         style= { styles.colorButton }
                         type="button"
