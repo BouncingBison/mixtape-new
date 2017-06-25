@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const EMOTIONS = require("../constants/emotions");
 let EMOTIONS_DROPDOWN = "";
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 class SongEmotion extends Component {
 
@@ -40,8 +35,7 @@ class SongEmotion extends Component {
                         value={this.state.value}
                         maxHeight={300}
                         onChange={this.handleChange}
-                        floatingLabelText="Choose an Emotion"
-                        floatingLabelStyle={{color: 'black'}}
+                        floatingLabelText="CHOOSE AN EMOTION"
                     >
                         { EMOTIONS_DROPDOWN }
                     </SelectField>

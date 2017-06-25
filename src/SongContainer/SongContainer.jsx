@@ -1,65 +1,40 @@
 import React, { Component } from "react";
 import { PhotoshopPicker } from "react-color";
 import SongEmotion from "./SongEmotion";
+import SongColor from "./SongColor";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 class SongContainer extends Component {
 
     constructor(props) {
         super(props);
 
-        this.queueColor = this.queueColor.bind(this);
         this.updateColor = this.updateColor.bind(this);
-        this.closeColorPicker = this.closeColorPicker.bind(this);
-        this.openColorPicker = this.openColorPicker.bind(this);
 
         this.state = {
-            displayColorPicker: false,
             backgroundColor: "grey",
-            pickerColor: "grey"
+            emotion: ""
         };
     }
 
-    closeColorPicker() {
+    updateColor = (color) =>
         this.setState({
-            pickerColor: this.state.backgroundColor,
-            displayColorPicker: false
-        })
-    };
-
-    openColorPicker() {
-        this.setState({
-            displayColorPicker: true
-        })
-    };
-
-    queueColor(newColor) {
-        this.setState({
-            pickerColor: newColor.hex
-        })
-    }
-    updateColor() {
-        this.setState({
-            displayColorPicker: false,
-            backgroundColor: this.state.pickerColor
+            backgroundColor: color
         });
-    }
 
     render() {
 
         const styles = {
             songContainer: {
                 margin: "0 auto",
+                padding: "10px",
                 width: "600px",
                 height: "200px",
                 backgroundColor: this.state.backgroundColor,
                 border: "1px solid black"
-            },
-            colorButton: {
-                width: "110px",
-                padding: "5px",
-                backgroundColor: "white",
-                border: "2px solid black",
-                borderRadius: "2px"
             }
         };
 
@@ -71,24 +46,12 @@ class SongContainer extends Component {
                 <div
                     style={ styles.songContainer }
                 >
-                    <SongEmotion />
-                    <button
-                        style= { styles.colorButton }
-                        type="button"
-                        onClick={ this.openColorPicker }
-                    >
-                        Pick a Color
-                    </button>
-                    { this.state.displayColorPicker ?
-                        <PhotoshopPicker
-                            color={ this.state.pickerColor }
-                            onChange={ this.queueColor }
-                            onAccept={ this.updateColor }
-                            onCancel={ this.closeColorPicker }
-                        />
-                        :
-                        null
-                    }
+                    <SongEmotion/>
+                    <br></br>
+                    <SongColor
+                        updateColor = { this.updateColor }
+                        background = { this.state.backgroundColor }
+                    />
 
                 </div>
             </div>
