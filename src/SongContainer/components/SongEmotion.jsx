@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-const EMOTIONS = require("../constants/emotions");
+const EMOTIONS = require("../../constants/emotions");
 let EMOTIONS_DROPDOWN = "";
 
 class SongEmotion extends Component {

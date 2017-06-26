@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import SongEmotion from "./SongEmotion";
-import SongColor from "./SongColor";
-import SongNotes from "./SongNotes";
+import SongEmotion from "./components/SongEmotion";
+import SongColor from "./components/SongColor";
+import SongNotes from "./components/SongNotes";
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // Needed for onTouchTap
